@@ -25,19 +25,73 @@ class FCB1010MX(ControlSurface):
         with self.component_guard():
             #It's on
             self.log_message("-->It is on")
-            #Keeping everything nice and empty and mapable for now
-            #Encoders to auto-map to devices -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            #self._Encoder0 = EncoderElement(MIDI_CC_TYPE,13,22, Live.MidiMap.MapMode.absolute, name='Encoder0')
-            #self._Encoder1 = EncoderElement(MIDI_CC_TYPE,13,23, Live.MidiMap.MapMode.absolute, name='Encoder1')
-            #self._Encoder2 = EncoderElement(MIDI_CC_TYPE,13,24, Live.MidiMap.MapMode.absolute, name='Encoder2')
-            #self._Encoder3 = EncoderElement(MIDI_CC_TYPE,13,25, Live.MidiMap.MapMode.absolute, name='Encoder3')
-            #self._Encoder4 = EncoderElement(MIDI_CC_TYPE,13,26, Live.MidiMap.MapMode.absolute, name='Encoder4')
-            #self._Encoder5 = EncoderElement(MIDI_CC_TYPE,13,27, Live.MidiMap.MapMode.absolute, name='Encoder5')
-            #self._Encoder6 = EncoderElement(MIDI_CC_TYPE,13,28, Live.MidiMap.MapMode.absolute, name='Encoder6')
-            #self._Encoder7 = EncoderElement(MIDI_CC_TYPE,13,29, Live.MidiMap.MapMode.absolute, name='Encoder7')
-            #self._Encoders = ButtonMatrixElement(rows=[[self._Encoder0, self._Encoder1, self._Encoder2, self._Encoder3, self._Encoder4,  self._Encoder5, self._Encoder6, self._Encoder7]])
-            #Device -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            #self.log_message("Device component set")
-            #self._device = DeviceComponent(name='Device', is_enabled=False, layer=Layer(parameter_controls=self._Encoders), device_selection_follows_track_selection=True)
-            #self._device.set_enabled(True)
-            #self.set_device_component(self._device)
+            #Alright ... so we got 10 buttons and 2 pedals to play with.
+            #Buttons: CC22 to cc31 ... Pedal A: 64 - Pedal B: 65
+            #Mirror the TriggerFinger functionality?
+            
+            #Bottom row
+            self._Pad0 = ButtonElement(True, MIDI_CC_TYPE, 15, 22, name='Pad0')        
+            self._Pad1 = ButtonElement(True, MIDI_CC_TYPE, 15, 23, name='Pad1')
+            self._Pad2 = ButtonElement(True, MIDI_CC_TYPE, 15, 24, name='Pad2')
+            self._Pad3 = ButtonElement(True, MIDI_CC_TYPE, 15, 25, name='Pad3')           
+            self._Pad4 = ButtonElement(True, MIDI_CC_TYPE, 15, 26, name='Pad4')
+            #Top row
+            self._Pad5 = ButtonElement(True, MIDI_CC_TYPE, 15, 27, name='Pad5')            
+            self._Pad6 = ButtonElement(True, MIDI_CC_TYPE, 15, 28, name='Pad6')
+            self._Pad7 = ButtonElement(True, MIDI_CC_TYPE, 15, 29, name='Pad7')
+            self._Pad8 = ButtonElement(True, MIDI_CC_TYPE, 15, 30, name='Pad8')
+            self._Pad9 = ButtonElement(True, MIDI_CC_TYPE, 15, 31, name='Pad9')
+            
+            #Listeners on individual buttons
+            self._Pad0.add_value_listener(self._trig_pad0, False)
+            self._Pad1.add_value_listener(self._trig_pad1, False)
+            self._Pad2.add_value_listener(self._trig_pad2, False)
+            self._Pad3.add_value_listener(self._trig_pad3, False)
+            self._Pad4.add_value_listener(self._trig_pad4, False)
+            
+            self._Pad5.add_value_listener(self._trig_pad5, False)
+            self._Pad6.add_value_listener(self._trig_pad6, False)
+            self._Pad7.add_value_listener(self._trig_pad7, False)
+            self._Pad8.add_value_listener(self._trig_pad8, False)
+            self._Pad9.add_value_listener(self._trig_pad9, False)
+            
+    def _trig_pad0(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad0 triggered")
+    
+    def _trig_pad1(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad1 triggered")
+    
+    def _trig_pad2(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad2 triggered")
+            
+    def _trig_pad3(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad3 triggered")
+    
+    def _trig_pad4(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad4 triggered")
+    
+    def _trig_pad5(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad5 triggered")
+            
+    def _trig_pad6(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad6 triggered")
+    
+    def _trig_pad7(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad7 triggered")
+    
+    def _trig_pad8(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad8 triggered")
+            
+    def _trig_pad9(self, value):        
+        if value > 0:
+            self.show_message("TFMX Debug: Pad9 triggered")
+    
